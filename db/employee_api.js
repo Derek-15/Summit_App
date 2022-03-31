@@ -269,7 +269,6 @@ app.put('/api/employess/editemp/:employee_id', (req,res)=>{
       }
   
     });
-
   });
 });
 

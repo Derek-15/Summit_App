@@ -3,8 +3,11 @@ const Joi = require('joi')
 const express = require('express');
 const Address = require('ipaddr.js');
 const { parseUrl } = require('mysql/lib/ConnectionConfig');
+const cors = require('cors');
+
 const app = express();
 app.use(express.json());
+app.use(cors());
 app.get('/', (req,res)=>{
   var con = mysql.createConnection({
     host: "localhost",
@@ -70,16 +73,9 @@ app.post('/api/create-sub', (req,res)=>{
           res.send(result);
           console.log(result);
   
-        }
-        
-  
-    
-      });
-  
-    });
-  
-  
-  
+        } 
+      }); 
+    });  
   });
 
 
@@ -107,7 +103,7 @@ app.post('/api/create-sub', (req,res)=>{
 
 
 // //selects employee based off id
-  app.get('/api/employees/:employee_id', (req,res)=>{
+  app.get('/api/employees/id/:employee_id', (req,res)=>{
     let con = mysql.createConnection({
       host: "localhost",
       user: "root",
@@ -131,25 +127,25 @@ app.post('/api/create-sub', (req,res)=>{
   //gets employees based on position
   //injection risk
   // //directly user input to make a query
-  // app.get('/api/employees/position/:employee_position', (req,res)=>{
-  //   let con = mysql.createConnection({
-  //     host: "localhost",
-  //     user: "root",
-  //     password: "Cutler7788!",
-  //     database: "summitdb"
-  //   });
-  //   con.connect(function(err) {
-  //     if(err) throw err;
-  //     con.query("SELECT * FROM employees WHERE employee_position LIKE '%" + (req.params.employee_position) + "%'", function(err, result, fields){
-  //       if(err) throw err
-  //       else {
-  //         console.log(result);
-  //         res.send(result);
-  //       }
+  app.get('/api/employees/position/:employee_position', (req,res)=>{
+    let con = mysql.createConnection({
+      host: "localhost",
+      user: "root",
+      password: "Cutler7788!",
+      database: "summitdb"
+    });
+    con.connect(function(err) {
+      if(err) throw err;
+      con.query("SELECT * FROM employees WHERE employee_position LIKE '%" + (req.params.employee_position) + "%'", function(err, result, fields){
+        if(err) throw err
+        else {
+          console.log(result);
+          res.send(result);
+        }
   
-  //     });
-  //   });
-  // });
+      });
+    });
+  });
 
 
   // app.get('/api/employees/:employee_id/:employee_position/:employee_fullname', (req,res)=>{
@@ -181,5 +177,5 @@ app.post('/api/create-sub', (req,res)=>{
   
 
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 app.listen(port, () => console.log(`Listening on port ${port}`));

@@ -9,10 +9,9 @@ var con = mysql.createConnection({
 
 con.connect(function(err) {
   if (err) throw err;
-  console.log("Connected!");
-  var sql = "ALTER TABLE employees ADD COLUMN employee_fullname VARCHAR(255)";
+  var sql = "DROP TABLE employees";
   con.query(sql, function (err, result) {
     if (err) throw err;
-    console.log("Table altered");
+    console.log("Table deleted");
   });
 });
