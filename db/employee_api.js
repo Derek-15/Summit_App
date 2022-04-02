@@ -4,7 +4,9 @@ const express = require('express');
 const Address = require('ipaddr.js');
 const { parseUrl } = require('mysql/lib/ConnectionConfig');
 const app = express();
+const cors = require('cors');
 app.use(express.json());
+app.use(cors());
 app.get('/', (req,res)=>{
   var con = mysql.createConnection({
     host: "localhost",
@@ -80,7 +82,50 @@ app.get('/api/employees/getcustid/:customer_id', (req,res)=>{
     });
   });
 });
-;
+
+
+//get customers by name
+app.get('/api/employees/getcustname/:customer_contact_lname', (req,res)=>{
+  let con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "Cutler7788!",
+    database: "summitdb"
+  });
+  con.connect(function(err) {
+    if(err) throw err;
+    con.query("SELECT * FROM customers WHERE customer_contact_lname LIKE'%" + (req.params.customer_contact_lname) + "%'", function(err, result, fields){
+      if(err) throw err
+      else {
+        console.log(result);
+        res.send(result);
+      }
+
+    });
+  });
+});
+
+//get customer by name and status
+app.get('/api/employees/getcust/:status/:customer_contact_lname', (req,res)=>{
+  let con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "Cutler7788!",
+    database: "summitdb"
+  });
+  con.connect(function(err) {
+    if(err) throw err;
+    con.query("SELECT * FROM customers WHERE status = " + (req.params.status) + " OR customer_contact_lname LIKE '%" + (req.params.customer_contact_lname) + "%'", function(err, result, fields){
+      if(err) throw err
+      else {
+        console.log(result);
+        res.send(result);
+      }
+
+    });
+  });
+});
+
 
 //post customer
 app.post('/api/employees/create-cust', (req,res)=>{
@@ -137,7 +182,7 @@ app.put('/api/employess/editcust/:customer_id', (req,res)=>{
       if (err) throw err
       else{
         console.log(result);
-        if(result == "") return res.status(404).send("Nu cusotmer with that id was found");
+        if(result == "") return res.status(404).send("No cusotmer with that id was found");
           res.send(result);
       }
   
@@ -201,6 +246,69 @@ app.get('/api/employees/getemployees/:employee_id', (req,res)=>{
   con.connect(function(err) {
     if(err) throw err;
     con.query("SELECT * FROM employees WHERE employee_id = " + parseInt(req.params.employee_id), function(err, result, fields){
+      if(err) throw err
+      else {
+        console.log(result);
+        res.send(result);
+      }
+
+    });
+  });
+});
+
+//Get employees by position
+app.get('/api/employees/position/:employee_position', (req,res)=>{
+  let con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "Cutler7788!",
+    database: "summitdb"
+  });
+  con.connect(function(err) {
+    if(err) throw err;
+    con.query("SELECT * FROM employees WHERE employee_position LIKE '%" + (req.params.employee_position) + "%'", function(err, result, fields){
+      if(err) throw err
+      else {
+        console.log(result);
+        res.send(result);
+      }
+
+    });
+  });
+});
+
+//get employees by both position and fullname
+app.get('/api/employees/:employee_position/:employee_fullname', (req,res)=>{
+  let con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "Cutler7788!",
+    database: "summitdb"
+  });
+  con.connect(function(err) {
+    if(err) throw err;
+    con.query("SELECT * FROM employees WHERE employee_position LIKE '%" + (req.params.employee_position) +
+     "%' OR employee_fullname LIKE '%" + (req.params.employee_fullname) + "%'", function(err, result, fields){
+      if(err) throw err
+      else {
+        console.log(result);
+        res.send(result);
+      }
+
+    });
+  });
+});
+//get employees by fullname
+app.get('/api/employees/name/:employee_fullname', (req,res)=>{
+  let con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "Cutler7788!",
+    database: "summitdb"
+  });
+  con.connect(function(err) {
+    if(err) throw err;
+    con.query("SELECT * FROM employees WHERE employee_fullname LIKE '%" + (req.params.employee_fullname) + "%'", function(err, result, fields){
       if(err) throw err
       else {
         console.log(result);

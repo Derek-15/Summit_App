@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.88.1">
-    <script src="formbehind.js"></script>
+    <script src="employeesbehind.js"></script>
     <title>Summit Oil & Gas</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/product/">
@@ -44,55 +44,69 @@
       <img src="icons/mountain.png" style="width:30px;height:30px;">
       
     </a>
-    <a class="py-2 d-none d-md-inline-block" href="index.html">Home</a>
-    <a class="py-2 d-none d-md-inline-block" href="form.html">Contact Us</a>
-    <a class="py-2 d-none d-md-inline-block" href="employees.html">Meet Us</a>
+    <a class="py-2 d-none d-md-inline-block" href="employeehome.html">Home</a>
+    <a class="py-2 d-none d-md-inline-block" href="viewcustomer.html">View Customers</a>
+    <a class="py-2 d-none d-md-inline-block" href="editcustomer.html">Edit Customers</a>
+    <a class="py-2 d-none d-md-inline-block" href="viewemployee.html">View Employees</a>
+    <a class="py-2 d-none d-md-inline-block" href="editemployee.html">Edit Employees</a>
+    .
   </nav>
 </header>
 
 <main>
+  <form action="/api/create-sub" method="POST">
+    <div class="form">
+      <div class="form0">
+        <h1>Contact Us</h1>
+        <p>Please fill out this form to contact us.</p>
+      </div>
+
+      <div class="form1">
+        <label>Please Enter First Name:</label>
+        <input type ="text" id="fname" placeholder="Please Enter First Name">
+      </div>
+      <div class="form2">
+        <label>Please Enter Last Name:</label>
+        <input type="text" id="lname" placeholder="Please Enter Last Name">
+      </div>
+      <div class="form3">
+        <label>Please Enter Buisness Name:</label>
+        <input type="text" id="bname" placeholder="Please Enter Buisness">
+      </div>
+      <div class="form4">
+        <label>Please Enter Email:</label>
+        <input type="text" id="email" placeholder=" Please Enter Email">
+      </div>
+
+      <div class="form5">
+        <label>Please Enter Phone Number:</label>
+        <input type="text" id="phonenumber" placeholder="Enter Phone Number">
+      </div>
 
 
-  <div class="form">  
-    <div class="form1">
-      <h1>Meet Our People!</h1>
+      <div class="form6">
+        <label>Please Enter Address:</label>
+        <input type="text" id="address" placeholder="Please Enter Address">
+      </div>
+
+      <div class="form7">
+        <label>Please Enter Address Description</label>
+        <input type="text" id="description" placeholder="Address Description">
+      </div>
+
+      <div class="send">
+        <input type="button" value="Submit" onclick="sentCustomer()">
+      </div>
+      <p id="test"></p> 
+
+
+      
     </div>
-     
-    <div class="form2">
-      <label>Name:</label>
-      <input type="text">
-      <select id="inputselection">
-        <option value="VP Petroleum Engineering">VP Petroleum Engineering</option>
-        <option value="Accountant">Accountant</option>
-        <option value="Drilling Engineer">Drilling Engineer</option>
-        <option value="Production Engineer">Production Engineer</option>
-        <option value="Reservoir Engineer">Reservoir Engineer</option>
-        <option value="Facilities Engineer">Facilities Engineer</option>
-        <option value="Contact CFO">Contact CFO</option>
-        <option value="Geologist">Geologist</option>
-        <option value="Controller">Controller</option>
-        <option value="Surface Landman">Surface Landman</option>
-      </select>
-    </div>
-    <div class="form3">
-      <p id="test"></p>
-      <input type="button" onclick="GetEmployee()" value="submit">
-    </div>
-    <div class="form4">
-      <table id="empt" style="border: 1px solid black;">
-        <tr>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Email</th>
-          <th>Phone Number</th>
-          <th>Position</th>
-        </tr>
-      </table>
-    </div>
+  </form>
 
+    
 
-  </div>
-
+  
 
 
 </main>

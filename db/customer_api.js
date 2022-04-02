@@ -148,26 +148,46 @@ app.post('/api/create-sub', (req,res)=>{
   });
 
 
-  // app.get('/api/employees/:employee_id/:employee_position/:employee_fullname', (req,res)=>{
-  //   let con = mysql.createConnection({
-  //     host: "localhost",
-  //     user: "root",
-  //     password: "Cutler7788!",
-  //     database: "summitdb"
-  //   });
-  //   con.connect(function(err) {
-  //     if(err) throw err;
-  //     con.query("SELECT * FROM employees WHERE employee_id = " + parseInt(req.params.employee_id) + " OR employee_position LIKE '%" + (req.params.employee_position) +
-  //      "%' OR employee_fullname LIKE '%" + (req.params.employee_fullname) + "%'", function(err, result, fields){
-  //       if(err) throw err
-  //       else {
-  //         console.log(result);
-  //         res.send(result);
-  //       }
+  app.get('/api/employees/:employee_position/:employee_fullname', (req,res)=>{
+    let con = mysql.createConnection({
+      host: "localhost",
+      user: "root",
+      password: "Cutler7788!",
+      database: "summitdb"
+    });
+    con.connect(function(err) {
+      if(err) throw err;
+      con.query("SELECT * FROM employees WHERE employee_position LIKE '%" + (req.params.employee_position) +
+       "%' OR employee_fullname LIKE '%" + (req.params.employee_fullname) + "%'", function(err, result, fields){
+        if(err) throw err
+        else {
+          console.log(result);
+          res.send(result);
+        }
   
-  //     });
-  //   });
-  // });
+      });
+    });
+  });
+
+  app.get('/api/employees/name/:employee_fullname', (req,res)=>{
+    let con = mysql.createConnection({
+      host: "localhost",
+      user: "root",
+      password: "Cutler7788!",
+      database: "summitdb"
+    });
+    con.connect(function(err) {
+      if(err) throw err;
+      con.query("SELECT * FROM employees WHERE employee_fullname LIKE '%" + (req.params.employee_fullname) + "%'", function(err, result, fields){
+        if(err) throw err
+        else {
+          console.log(result);
+          res.send(result);
+        }
+  
+      });
+    });
+  });
 
 
 
