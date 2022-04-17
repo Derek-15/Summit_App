@@ -10,6 +10,8 @@ async function GetEmployee(){
     //var input 
     var inputPosition = document.getElementById("inputselection").value;
     var inputName = document.getElementById("empname").value;
+    
+    
     //checks what input there is and creates the api string based on the input values
     var apiString;
     if(inputPosition == "" && inputName == ""){
@@ -37,6 +39,7 @@ async function GetEmployee(){
         //length of api return
         var len = jsonData.length;
         var empTable = document.getElementById("empt");
+        document.getElementById("empt").style.display = ''
 
         //fills in chart
        for(let i = 0; i <= len -1; i++){
@@ -109,6 +112,7 @@ async function GetCustomer(){
      //length of api return
      var len = jsonData.length;
      var custTable = document.getElementById("custtable");
+     document.getElementById("custtable").style.display = '' ;
 
      //fills in chart
     for(let i = 0; i <= len -1; i++){
@@ -121,27 +125,27 @@ async function GetCustomer(){
          lname.setAttribute("id", "lname"+ i);
          document.getElementById("lname" + i).innerHTML = (jsonData[i].customer_contact_lname);
 
-         var bname = custTable.rows[i+1].insertCell(1);
+         var bname = custTable.rows[i+1].insertCell(2);
          bname.setAttribute("id", "bname"+ i);
          document.getElementById("bname" + i).innerHTML = (jsonData[i].custumer_business_name);
 
-         var email = custTable.rows[i+1].insertCell(2);
+         var email = custTable.rows[i+1].insertCell(3);
          email.setAttribute("id", "email"+ i);
          document.getElementById("email" + i).innerHTML = (jsonData[i].customer_email);
 
-         var phonenumber = custTable.rows[i+1].insertCell(3);
+         var phonenumber = custTable.rows[i+1].insertCell(4);
          phonenumber.setAttribute("id", "phonenumber"+ i);
          document.getElementById("phonenumber" + i).innerHTML = (jsonData[i].customer_phone_number);
 
-         var cstatus = custTable.rows[i+1].insertCell(4);
+         var cstatus = custTable.rows[i+1].insertCell(5);
          cstatus.setAttribute("id", "status"+ i);
          document.getElementById("status" + i).innerHTML = (jsonData[i].status);
 
-         var caddress = custTable.rows[i+1].insertCell(5);
+         var caddress = custTable.rows[i+1].insertCell(6);
          caddress.setAttribute("id", "address"+ i);
          document.getElementById("address" + i).innerHTML = (jsonData[i].address);
 
-         var cdescription = custTable.rows[i+1].insertCell(6);
+         var cdescription = custTable.rows[i+1].insertCell(7);
          cdescription.setAttribute("id", "description"+ i);
          document.getElementById("description" + i).innerHTML = (jsonData[i].description);
 
@@ -214,47 +218,330 @@ async function selectedCustomer(){
 }
 
 async function editCustomer(){
-    var apiString = "http://localhost:3000/api/employess/editcust/";
+    var selectedCustomer = document.getElementById("custdrop").value;
+    if(selectedCustomer != ""){
+        var apiString = "http://localhost:3000/api/employess/editcust/";
+    
+
+        var firstName = document.getElementById("fname").value;
+        var lastName = document.getElementById("lname").value;
+        var buisnessName = document.getElementById("bname").value;
+        var custemail = document.getElementById("email").value;
+        var custphonenumber = document.getElementById("phonenumber").value;
+        var custstatus = document.getElementById("status").value;
+        var custaddress = document.getElementById("address").value;
+        var custdescription = document.getElementById("description").value;
+    
+        //creates xhr object
+        let xhr = new XMLHttpRequest();
+     
+        apiString = apiString + selectedCustomer;
+    
+        //create connection
+        xhr.open("PUT", apiString, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        //call back statechange
+         xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Print received data from server
+                console.log(this.responseText);
+                alert("Your Submission Has Been Recieved!");
+    
+            }
+        };
+        var data = JSON.stringify({ "customer_contact_fname": firstName, "customer_contact_lname": lastName, "custumer_business_name": buisnessName,
+        "customer_email": custemail, "customer_phone_number": custphonenumber, "status": custstatus,
+        "address": custaddress,"description": custdescription});
+        xhr.send(data);
+        console.log(data);
+        //clear html
+    
+        document.getElementById("fname").value = "";
+        document.getElementById("lname").value = "";
+        document.getElementById("bname").value = "";
+        document.getElementById("email").value= "";
+        document.getElementById("phonenumber").value = "";
+        document.getElementById("status").value = "";
+        document.getElementById("address").value = "";
+        document.getElementById("description").value = "";
+
+        //reloads page
+        location.reload();
+    } else {
+
+        var apiString = "http://localhost:3000/api/employees/create-cust";
+        var firstName = document.getElementById("fname").value;
+        var lastName = document.getElementById("lname").value;
+        var buisnessName = document.getElementById("bname").value;
+        var custemail = document.getElementById("email").value;
+        var custphonenumber = document.getElementById("phonenumber").value;
+        var custstatus = document.getElementById("status").value;
+        var custaddress = document.getElementById("address").value;
+        var custdescription = document.getElementById("description").value;
+    
+        //creates xhr object
+        let xhr = new XMLHttpRequest();
+    
+        //create connection
+        xhr.open("POST", apiString, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        //call back statechange
+         xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Print received data from server
+                console.log(this.responseText);
+                alert("Your Submission Has Been Recieved!");
+    
+            }
+        };
+        var data = JSON.stringify({ "customer_contact_fname": firstName, "customer_contact_lname": lastName, "custumer_business_name": buisnessName,
+        "customer_email": custemail, "customer_phone_number": custphonenumber, "status":custstatus,
+        "address": custaddress,"description": custdescription});
+        xhr.send(data);
+        console.log(data);
+        //clear html
+    
+        document.getElementById("fname").value = "";
+        document.getElementById("lname").value = "";
+        document.getElementById("bname").value = "";
+        document.getElementById("email").value= "";
+        document.getElementById("phonenumber").value = "";
+        document.getElementById("status").value = "";
+        document.getElementById("address").value = "";
+        document.getElementById("description").value = "";
+
+        //reloads page
+        location.reload();
+
+    }
+
+}
+
+async function deleteCustomer(){
     var selectedCustomer = document.getElementById("custdrop").value;
 
-    var firstName = document.getElementById("fname").value;
-    var lastName = document.getElementById("lname").value;
-    var buisnessName = document.getElementById("bname").value;
-    var custemail = document.getElementById("email").value;
-    var custphonenumber = document.getElementById("phonenumber").value;
-    var custstatus = document.getElementById("status").value;
-    var custaddress = document.getElementById("address").value;
-    var custdescription = document.getElementById("description").value;
 
-    //creates xhr object
-    let xhr = new XMLHttpRequest();
- 
+
+    var apiString = "http://localhost:3000/api/employees/delete-cust/";
+
     apiString = apiString + selectedCustomer;
+        var firstName = document.getElementById("fname").value;
+        var lastName = document.getElementById("lname").value;
+        var buisnessName = document.getElementById("bname").value;
+        var custemail = document.getElementById("email").value;
+        var custphonenumber = document.getElementById("phonenumber").value;
+        var custstatus = document.getElementById("status").value;
+        var custaddress = document.getElementById("address").value;
+        var custdescription = document.getElementById("description").value;
+    
+        //creates xhr object
+        let xhr = new XMLHttpRequest();
+    
+        //create connection
+        xhr.open("DELETE", apiString, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        //call back statechange
+         xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Print received data from server
+                console.log(this.responseText);
+                alert("Your Submission Has Been Recieved!");
+    
+            }
+        };
+        var data = JSON.stringify({ "customer_contact_fname": firstName, "customer_contact_lname": lastName, "custumer_business_name": buisnessName,
+        "customer_email": custemail, "customer_phone_number": custphonenumber, "status":custstatus,
+        "address": custaddress,"description": custdescription});
+        xhr.send(data);
+        console.log(data);
+        //clear html
+    
+        document.getElementById("fname").value = "";
+        document.getElementById("lname").value = "";
+        document.getElementById("bname").value = "";
+        document.getElementById("email").value= "";
+        document.getElementById("phonenumber").value = "";
+        document.getElementById("status").value = "";
+        document.getElementById("address").value = "";
+        document.getElementById("description").value = "";
 
-    //create connection
-    xhr.open("PUT", apiString, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    //call back statechange
-     xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            // Print received data from server
-            console.log(this.responseText);
-            alert("Your Submission Has Been Recieved!");
+        //reloads page
+        location.reload();
 
-        }
-    };
-    var data = JSON.stringify({ "customer_contact_fname": firstName, "customer_contact_lname": lastName, "custumer_business_name": buisnessName,
-    "customer_email": custemail, "customer_phone_number": custphonenumber, "status": custstatus,
-    "address": custaddress,"description": custdescription});
-    xhr.send(data);
-    console.log(data);
-    //clear html
-
-    document.getElementById("fname").value = "";
-    document.getElementById("lname").value = "";
-    document.getElementById("bname").value = "";
-    document.getElementById("email").value= "";
-    document.getElementById("phonenumber").value = "";
-    document.getElementById("address").value = "";
-    document.getElementById("description").value = "";
 }
+async function loadEmployees(){
+    var apiString = "http://localhost:3000/api/employees/getemployees";
+    var empInput = document.getElementById("empdrop");
+    alert(apiString);
+     var response = await fetch(apiString);
+ 
+     //create JSON object
+     var  jsonData = await response.json();
+    
+     //length of api return      
+     var len = jsonData.length;
+     for(let i = 0; i <= len -1; i++){
+         var employee = new Option(jsonData[i].employee_fname + " " + jsonData[i].employee_lname,jsonData[i].employee_id)
+         empInput.add(employee);
+     }
+
+}
+async function selectedEmployees(){
+    var selectedEmployee = document.getElementById("empdrop").value;
+
+    var apiString = "http://localhost:3000/api/employees/getemployees/";
+
+    apiString = apiString + selectedEmployee;
+
+    alert(apiString);
+
+    var response = await fetch(apiString);
+ 
+    //create JSON object
+    var  jsonData = await response.json();
+
+    //fills text box's with selected data
+    document.getElementById("fname").value = (jsonData[0].employee_fname);
+    document.getElementById("lname").value = (jsonData[0].employee_lname);
+    document.getElementById("email").value = (jsonData[0].employee_email);
+    document.getElementById("phonenumber").value = (jsonData[0].employee_phone_number);
+    document.getElementById("position").value = (jsonData[0].employee_position);
+
+}
+
+async function sentEmployee(){
+    var selectedEmployee = document.getElementById("empdrop").value;
+    if(selectedEmployee != ""){
+        var apiString = "http://localhost:3000/api/employess/editemp/";
+    
+
+        var firstName = document.getElementById("fname").value;
+        var lastName = document.getElementById("lname").value;
+        var empemail = document.getElementById("email").value;
+        var empphonenumber = document.getElementById("phonenumber").value;
+        var empposition = document.getElementById("position").value;
+    
+        //creates xhr object
+        let xhr = new XMLHttpRequest();
+     
+        apiString = apiString + selectedEmployee;
+    
+        //create connection
+        xhr.open("PUT", apiString, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        //call back statechange
+         xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Print received data from server
+                console.log(this.responseText);
+                alert("Your Submission Has Been Recieved!");
+    
+            }
+        };
+        var data = JSON.stringify({ "employee_fname": firstName, "employee_lname": lastName, "employee_email": empemail,
+        "employee_phone_number": empphonenumber, "employee_position": empposition, "employee_fullname": firstName + " "+ lastName});
+        xhr.send(data);
+        console.log(data);
+        //clear html
+    
+        document.getElementById("fname").value = "";
+        document.getElementById("lname").value = "";
+        document.getElementById("email").value= "";
+        document.getElementById("phonenumber").value = "";
+        document.getElementById("position").value = "";
+
+
+        //reloads page
+        location.reload();
+    } else {
+
+        var apiString = "http://localhost:3000/api/employees/create-emp";
+        var firstName = document.getElementById("fname").value;
+        var lastName = document.getElementById("lname").value;
+        var empemail = document.getElementById("email").value;
+        var empphonenumber = document.getElementById("phonenumber").value;
+        var empposition = document.getElementById("position").value;
+
+    
+        //creates xhr object
+        let xhr = new XMLHttpRequest();
+    
+        //create connection
+        xhr.open("POST", apiString, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        //call back statechange
+         xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Print received data from server
+                console.log(this.responseText);
+                alert("Your Submission Has Been Recieved!");
+    
+            }
+        };
+        var data = JSON.stringify({ "employee_fname": firstName, "employee_lname": lastName, "employee_email": empemail,
+        "employee_phone_number": empphonenumber, "employee_position": empposition, "employee_fullname": firstName+ " " +lastName});
+        xhr.send(data);
+        console.log(data);
+        //clear html
+    
+        document.getElementById("fname").value = "";
+        document.getElementById("lname").value = "";
+        document.getElementById("email").value= "";
+        document.getElementById("phonenumber").value = "";
+        document.getElementById("position").value = "";
+
+
+        //reloads page
+        location.reload();
+
+    }
+
+}
+
+async function deleteEmployee(){
+    var selectedEmployee = document.getElementById("empdrop").value;
+    var apiString = "http://localhost:3000/api/employees/delete-emp/";
+
+    apiString = apiString + selectedEmployee;
+        var firstName = document.getElementById("fname").value;
+        var lastName = document.getElementById("lname").value;
+        var empemail = document.getElementById("email").value;
+        var empphonenumber = document.getElementById("phonenumber").value;
+        var empposition = document.getElementById("position").value;
+    
+        //creates xhr object
+        let xhr = new XMLHttpRequest();
+    
+        //create connection
+        xhr.open("DELETE", apiString, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        //call back statechange
+         xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Print received data from server
+                console.log(this.responseText);
+                alert("Your Submission Has Been Recieved!");
+    
+            }
+        };
+        var data = JSON.stringify({ "employee_fname": firstName, "employee_lname": lastName, "employee_email": empemail,
+        "employee_phone_number": empphonenumber, "employee_position": empposition, "employee_fullname":firstName + " " +lastName});
+        xhr.send(data);
+        console.log(data);
+        //clear html
+    
+        document.getElementById("fname").value = "";
+        document.getElementById("lname").value = "";
+        document.getElementById("email").value= "";
+        document.getElementById("phonenumber").value = "";
+        document.getElementById("position").value = "";
+
+
+        //reloads page
+        location.reload();
+
+}
+
+
+    
+

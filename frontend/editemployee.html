@@ -6,6 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.88.1">
+    <link rel="icon" href="icons/oil_logo.png">
     <script src="employeesbehind.js"></script>
     <title>Summit Oil & Gas</title>
 
@@ -36,7 +37,7 @@
     <!-- Custom styles for this template -->
     <link href="product.css" rel="stylesheet">
   </head>
-<body>
+<body onload="loadEmployees()">
     
 <header class="site-header sticky-top py-1">
   <nav class="container d-flex flex-column flex-md-row justify-content-between">
@@ -57,47 +58,40 @@
   <form action="/api/create-sub" method="POST">
     <div class="form">
       <div class="form0">
-        <h1>Contact Us</h1>
-        <p>Please fill out this form to contact us.</p>
+        <h1>Edit or Add Employee</h1>
+        <p></p>
+        <select id="empdrop" onchange="selectedEmployees()">
+          <option value=""> Create New</option>
+        </select>
       </div>
 
       <div class="form1">
-        <label>Please Enter First Name:</label>
+        <label>First Name:</label>
         <input type ="text" id="fname" placeholder="Please Enter First Name">
       </div>
       <div class="form2">
-        <label>Please Enter Last Name:</label>
+        <label>Last Name:</label>
         <input type="text" id="lname" placeholder="Please Enter Last Name">
       </div>
       <div class="form3">
-        <label>Please Enter Buisness Name:</label>
-        <input type="text" id="bname" placeholder="Please Enter Buisness">
+        <label>Email:</label>
+        <input type="text" id="email" placeholder="Please Enter Email">
       </div>
       <div class="form4">
-        <label>Please Enter Email:</label>
-        <input type="text" id="email" placeholder=" Please Enter Email">
+        <label>Phone Number:</label>
+        <input type="text" id="phonenumber" placeholder=" Please Enter Phone Number">
       </div>
 
       <div class="form5">
-        <label>Please Enter Phone Number:</label>
-        <input type="text" id="phonenumber" placeholder="Enter Phone Number">
-      </div>
-
-
-      <div class="form6">
-        <label>Please Enter Address:</label>
-        <input type="text" id="address" placeholder="Please Enter Address">
-      </div>
-
-      <div class="form7">
-        <label>Please Enter Address Description</label>
-        <input type="text" id="description" placeholder="Address Description">
+        <label>Position:</label>
+        <input type="text" id="position" placeholder="Enter Position">
       </div>
 
       <div class="send">
-        <input type="button" value="Submit" onclick="sentCustomer()">
+        <input type="button" value="Submit" onclick="sentEmployee()">
+        <input type="button" value="Delete" onclick="deleteEmployee()">
       </div>
-      <p id="test"></p> 
+
 
 
       
@@ -112,50 +106,7 @@
 </main>
 
 <footer class="container py-5">
-  <div class="row">
-    <div class="col-12 col-md">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="d-block mb-2" role="img" viewBox="0 0 24 24"><title>Product</title><circle cx="12" cy="12" r="10"/><path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"/></svg>
-      <small class="d-block mb-3 text-muted">&copy; 2017–2021</small>
-    </div>
-    <div class="col-6 col-md">
-      <h5>Features</h5>
-      <ul class="list-unstyled text-small">
-        <li><a class="link-secondary" href="#">Cool stuff</a></li>
-        <li><a class="link-secondary" href="#">Random feature</a></li>
-        <li><a class="link-secondary" href="#">Team feature</a></li>
-        <li><a class="link-secondary" href="#">Stuff for developers</a></li>
-        <li><a class="link-secondary" href="#">Another one</a></li>
-        <li><a class="link-secondary" href="#">Last time</a></li>
-      </ul>
-    </div>
-    <div class="col-6 col-md">
-      <h5>Resources</h5>
-      <ul class="list-unstyled text-small">
-        <li><a class="link-secondary" href="#">Resource name</a></li>
-        <li><a class="link-secondary" href="#">Resource</a></li>
-        <li><a class="link-secondary" href="#">Another resource</a></li>
-        <li><a class="link-secondary" href="#">Final resource</a></li>
-      </ul>
-    </div>
-    <div class="col-6 col-md">
-      <h5>Resources</h5>
-      <ul class="list-unstyled text-small">
-        <li><a class="link-secondary" href="#">Business</a></li>
-        <li><a class="link-secondary" href="#">Education</a></li>
-        <li><a class="link-secondary" href="#">Government</a></li>
-        <li><a class="link-secondary" href="#">Gaming</a></li>
-      </ul>
-    </div>
-    <div class="col-6 col-md">
-      <h5>About</h5>
-      <ul class="list-unstyled text-small">
-        <li><a class="link-secondary" href="#">Team</a></li>
-        <li><a class="link-secondary" href="#">Locations</a></li>
-        <li><a class="link-secondary" href="#">Privacy</a></li>
-        <li><a class="link-secondary" href="#">Terms</a></li>
-      </ul>
-    </div>
-  </div>
+
 </footer>
 
 

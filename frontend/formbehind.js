@@ -42,9 +42,12 @@ async function GetEmployee(){
         //length of api return
         var len = jsonData.length;
         var empTable = document.getElementById("empt");
+        document.getElementById("empt").style.display = '' ;
+
 
         //fills in chart
        for(let i = 0; i <= len -1; i++){
+
             empTable.insertRow(i+1);
             var fname = empTable.rows[i+1].insertCell(0);
             fname.setAttribute("id", "fname"+ i);

@@ -182,7 +182,7 @@ app.put('/api/employess/editcust/:customer_id', (req,res)=>{
       if (err) throw err
       else{
         console.log(result);
-        if(result == "") return res.status(404).send("No cusotmer with that id was found");
+        if(result == "") return res.status(404).send("No customer with that id was found");
           res.send(result);
       }
   
